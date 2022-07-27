@@ -11,7 +11,7 @@ const app: FastifyPluginAsync<AppOptions> = async (
   opts
 ): Promise<void> => {
   // swagger
-  void fastify.register(require('fastify-swagger'), swagger.options);
+  void fastify.register(require('@fastify/swagger'), swagger.options);
 
   void fastify.register(require('@fastify/cors'));
 

@@ -1,12 +1,30 @@
 import { FastifyInstance } from 'fastify';
 
-const { getComments } = require('../controllers/handler/commentHandler');
-const { getCommentSchema } = require('../controllers/schemas/commentSchema');
+const {
+  getComments,
+  getCommentById,
+  getCommentsByMovieId,
+} = require('../controllers/handler/commentHandler');
+
+const {
+  getCommentSchema,
+  getCommentsSchema,
+} = require('../controllers/schemas/commentSchema');
 
 const commentRoutes = async (fastify: FastifyInstance) => {
-  fastify.get('/api/comments', {
-    handler: getComments,
+  fastify.get('/api/comment/:id', {
+    handler: getCommentById,
     schema: getCommentSchema,
+  });
+
+  fastify.get('/api/comments/all', {
+    handler: getComments,
+    schema: getCommentsSchema,
+  });
+
+  fastify.get('/api/comments/:movieId', {
+    handler: getCommentsByMovieId,
+    schema: getCommentsSchema,
   });
 };
 

@@ -2,44 +2,59 @@ export {};
 
 const mongoose = require('mongoose');
 
-const movieSchema = new mongoose.Schema(
+const MovieSchema = new mongoose.Schema(
   {
-    plot: String,
-    genres: [String],
-    runtime: Number,
-    cast: [String],
-    num_mflix_comments: Number,
-    poster: String,
-    title: String,
-    fullplot: String,
-    countries: [String],
-    released: Date,
-    directors: [String],
-    rated: String,
     awards: {
-      wins: Number,
       nominations: Number,
       text: String,
+      wins: Number,
     },
-    lastUpdated: Date,
-    year: Number,
+    cast: [String],
+    countries: [String],
+    directors: [String],
+    fullplot: String,
+    genres: [String],
     imdb: {
+      id: Number,
       rating: Number,
       votes: Number,
-      id: Number,
+    },
+    languages: [String],
+    lastupdated: String,
+    metacritic: Number,
+    num_mflix_comments: Number,
+    plot: String,
+    poster: String,
+    rated: String,
+    released: Date,
+    runtime: Number,
+    title: String,
+    tomatoes: {
+      boxOffice: String,
+      consensus: String,
+      critic: {
+        meter: Number,
+        numReviews: Number,
+        rating: Number,
+      },
+      dvd: Date,
+      fresh: Number,
+      lastUpdated: Date,
+      production: String,
+      rotten: Number,
+      viewer: {
+        meter: Number,
+        numReviews: Number,
+        rating: Number,
+      },
+      website: String,
     },
     type: String,
-    tomatoes: {
-      viewer: {
-        rating: Number,
-        numReviews: Number,
-        meter: Number,
-      },
-      lastUpdated: Date,
-    },
+    writers: [String],
+    year: Number,
   },
   // Meghatározzuk, hogy melyik táblából származik
-  { collection: 'movies' }
+  { collection: 'movies', strict: false }
 );
 
-module.exports = mongoose.model('Movie', movieSchema);
+module.exports = mongoose.model('Movie', MovieSchema);

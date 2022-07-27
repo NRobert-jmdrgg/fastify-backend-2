@@ -1,12 +1,19 @@
 import { FastifyInstance } from 'fastify';
 
-const { getMovies } = require('../controllers/handler/movieHandler');
-const { getMovieSchema } = require('../controllers/schemas/movieSchema');
+const {
+  getMovieById,
+  getNMovies,
+} = require('../controllers/handler/movieHandler');
+const { getMoviesSchema } = require('../controllers/schemas/movieSchema');
 
 const MovieRoutes = async (fastify: FastifyInstance) => {
-  fastify.get('/api/movies/all', {
-    handler: getMovies,
-    schema: getMovieSchema,
+  fastify.get('/api/movie/:id', {
+    handler: getMovieById,
+  });
+
+  fastify.get('/api/movies/:num', {
+    handler: getNMovies,
+    schema: getMoviesSchema,
   });
 };
 

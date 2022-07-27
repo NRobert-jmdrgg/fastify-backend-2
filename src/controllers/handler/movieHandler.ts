@@ -1,16 +1,33 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-
 const Movie = require('../../models/movie');
 
-const getMovies = async (req: FastifyRequest, reply: FastifyReply) => {
+const getMovieById = async (
+  req: FastifyRequest<{ Params: { id: string } }>,
+  reply: FastifyReply
+) => {
   try {
-    const movies = Movie.find();
-    return movies;
+    const id = req.params.id;
+    const movie = Movie.findById(id);
+    return movie;
   } catch (error) {
     console.error(error);
   }
 };
 
+const getNMovies = async (
+  req: FastifyRequest<{ Params: { num: number } }>,
+  reply: FastifyReply
+) => {
+  try {
+    const moviesQuery = Movie.find().limit(req.params.num);
+    const movies = moviesQuery.select('_id runtime poster title year');
+    return movies;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
-  getMovies,
+  getMovieById,
+  getNMovies,
 };

@@ -1,4 +1,4 @@
-const getMovieSchema = {
+const getMoviesSchema = {
   response: {
     // ha ok, akkor objektumok listáját várjuk
     200: {
@@ -7,4 +7,4 @@ const getMovieSchema = {
   },
 };
 
-module.exports = { getMovieSchema };
+module.exports = { getMoviesSchema };

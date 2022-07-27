@@ -6,12 +6,13 @@ const commentSchema = new mongoose.Schema(
   {
     name: String,
     email: String,
-    movie_id: String,
+    movie_id: mongoose.ObjectId,
     text: String,
     date: Date,
   },
   {
     collection: 'comments',
+    versionKey: false,
   }
 );
 
