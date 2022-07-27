@@ -14,12 +14,14 @@ const getMovieById = async (
   }
 };
 
-const getNMovies = async (
-  req: FastifyRequest<{ Params: { num: number } }>,
+const getMoviesInIndexRange = async (
+  req: FastifyRequest<{ Params: { begin: number; end: number } }>,
   reply: FastifyReply
 ) => {
   try {
-    const moviesQuery = Movie.find().limit(req.params.num);
+    const moviesQuery = Movie.find()
+      .skip(req.params.begin)
+      .limit(req.params.end);
     const movies = moviesQuery.select('_id runtime poster title year');
     return movies;
   } catch (error) {
@@ -27,7 +29,17 @@ const getNMovies = async (
   }
 };
 
+const getMovieCount = async (req: FastifyRequest, reply: FastifyReply) => {
+  try {
+    const count = Movie.count({});
+    return count;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   getMovieById,
-  getNMovies,
+  getMoviesInIndexRange,
+  getMovieCount,
 };
