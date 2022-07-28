@@ -13,7 +13,7 @@ const theaterSchema = new mongoose.Schema(
         zipcode: String,
       },
       geo: {
-        type: String,
+        // type: String,
         coordinates: [Number],
       },
     },

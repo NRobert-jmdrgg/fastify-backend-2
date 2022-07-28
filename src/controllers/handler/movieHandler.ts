@@ -15,13 +15,11 @@ const getMovieById = async (
 };
 
 const getMoviesInIndexRange = async (
-  req: FastifyRequest<{ Params: { begin: number; end: number } }>,
+  req: FastifyRequest<{ Params: { begin: number } }>,
   reply: FastifyReply
 ) => {
   try {
-    const moviesQuery = Movie.find()
-      .skip(req.params.begin)
-      .limit(req.params.end);
+    const moviesQuery = Movie.find().skip(req.params.begin).limit(15);
     const movies = moviesQuery.select('_id runtime poster title year');
     return movies;
   } catch (error) {

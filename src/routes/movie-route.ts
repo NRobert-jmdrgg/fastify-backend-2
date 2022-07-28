@@ -12,7 +12,7 @@ const MovieRoutes = async (fastify: FastifyInstance) => {
     handler: getMovieById,
   });
 
-  fastify.get('/api/movies/display/:begin/:end', {
+  fastify.get('/api/movies/display/:begin', {
     handler: getMoviesInIndexRange,
     schema: getMoviesSchema,
   });
