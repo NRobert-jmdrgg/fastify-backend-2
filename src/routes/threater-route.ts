@@ -3,7 +3,7 @@ import { FastifyInstance } from 'fastify';
 const {
   getCitiesByState,
   getStreetsByCity,
-  getGeoLocationByStreet,
+  getGeoLocation,
   getStates,
 } = require('../controllers/handler/theaterHandler');
 
@@ -14,8 +14,8 @@ const theaterRoutes = async (fastify: FastifyInstance) => {
 
   fastify.get('/api/theaters/city/:city', { handler: getStreetsByCity });
 
-  fastify.get('/api/theaters/street/:street', {
-    handler: getGeoLocationByStreet,
+  fastify.get('/api/theaters/geo/:address', {
+    handler: getGeoLocation,
   });
 };
 
