@@ -6,7 +6,7 @@ const theaterSchema = new mongoose.Schema(
   {
     threaterId: Number,
     location: {
-      addess: {
+      address: {
         street1: String,
         city: String,
         state: String,
