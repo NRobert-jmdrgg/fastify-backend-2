@@ -2,6 +2,12 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 
 const Theater = require('../../models/theater');
 
+type Address = {
+  'location.address.state': string;
+  'location.address.city'?: string;
+  'location.address.street1'?: string;
+};
+
 const getStates = (req: FastifyRequest, reply: FastifyReply) => {
   try {
     const query = Theater.find();
@@ -39,20 +45,24 @@ const getStreetsByCity = (
 };
 
 const getGeoLocation = (
-  req: FastifyRequest<{ Params: { address: string } }>,
+  req: FastifyRequest<{
+    Params: { state: string; city: string; street: string };
+  }>,
   reply: FastifyReply
 ) => {
   try {
-    const address = req.params.address.replaceAll('-', ' ').split('_');
+    console.log(req.params);
+    let cond: Address = { 'location.address.state': req.params.state };
+    if (req.params.city) cond['location.address.city'] = req.params.city;
+    if (req.params.street) cond['location.address.street1'] = req.params.street;
+
     return Theater.aggregate([
       {
-        $match: {
-          'location.address.state': address[0],
-          'location.address.city': address[1],
-          'location.address.street1': address[2],
-        },
+        $match: cond,
       },
-    ]).project({ coordinates: '$location.geo.coordinates' });
+    ]).project({
+      coordinates: '$location.geo.coordinates',
+    });
   } catch (error) {
     console.error(error);
   }

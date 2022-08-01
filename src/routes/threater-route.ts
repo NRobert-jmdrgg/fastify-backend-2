@@ -14,7 +14,11 @@ const theaterRoutes = async (fastify: FastifyInstance) => {
 
   fastify.get('/api/theaters/city/:city', { handler: getStreetsByCity });
 
-  fastify.get('/api/theaters/geo/:address', {
+  fastify.get('/api/theaters/geo/:state/:city/:street', {
+    handler: getGeoLocation,
+  });
+
+  fastify.get('/api/theaters/geo/:state/:city', {
     handler: getGeoLocation,
   });
 };
