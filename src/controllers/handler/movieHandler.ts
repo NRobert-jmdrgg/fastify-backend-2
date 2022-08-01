@@ -36,8 +36,23 @@ const getMovieCount = async (req: FastifyRequest, reply: FastifyReply) => {
   }
 };
 
+const getMoviesByTitle = async (
+  req: FastifyRequest<{ Params: { query: string } }>,
+  reply: FastifyReply
+) => {
+  try {
+    const movies = Movie.find({
+      title: { $regex: req.params.query, $options: 'i' },
+    });
+    return movies;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   getMovieById,
   getMoviesInIndexRange,
   getMovieCount,
+  getMoviesByTitle,
 };

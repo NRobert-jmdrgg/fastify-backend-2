@@ -4,6 +4,7 @@ const {
   getMovieById,
   getMoviesInIndexRange,
   getMovieCount,
+  getMoviesByTitle,
 } = require('../controllers/handler/movieHandler');
 const { getMoviesSchema } = require('../controllers/schemas/movieSchema');
 
@@ -19,6 +20,11 @@ const MovieRoutes = async (fastify: FastifyInstance) => {
 
   fastify.get('/api/movies/count', {
     handler: getMovieCount,
+  });
+
+  fastify.get('/api/movies/search/:query', {
+    handler: getMoviesByTitle,
+    schema: getMoviesSchema,
   });
 };
 
