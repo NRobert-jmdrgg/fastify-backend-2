@@ -41,9 +41,12 @@ const getMoviesByTitle = async (
   reply: FastifyReply
 ) => {
   try {
-    const movies = Movie.find({
-      title: { $regex: req.params.query, $options: 'i' },
-    });
+    const movies = Movie.find(
+      {
+        title: { $regex: req.params.query, $options: 'i' },
+      },
+      'title year runtime poster'
+    );
     return movies;
   } catch (error) {
     console.log(error);
